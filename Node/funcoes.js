@@ -24,7 +24,7 @@ app.get('/ola/:cargo/:nome/:cor', function(req, res){
 });
 
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('SistemaDeCadastro', 'root', 'Omegamon37871145887', {
+const sequelize = new Sequelize('SistemaDeCadastro', 'root', 'senha', {
     host: "localhost", 
     dialect: 'mysql'
 
