@@ -24,7 +24,7 @@ app.get('/ola/:cargo/:nome/:cor', function(req, res){
 });
 
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('SistemaDeCadastro', 'root', 'senha', {
+const sequelize = new Sequelize('SistemaDeCadastro', 'root', 'Senha', {
     host: "localhost", 
     dialect: 'mysql'
 
@@ -36,7 +36,7 @@ sequelize.authenticate().then(function(){
     console.log("Falha ao se conectar: " + erro)
 })
 
-const Postagem = sequelize.define('postagens', {
+const Postagem = sequelize.define('SistemaDeCadastro', {
     titulo: {
         type: Sequelize.STRING 
     }, 
@@ -44,6 +44,8 @@ const Postagem = sequelize.define('postagens', {
         type: Sequelize.TEXT
     }
 })
+
+
 Postagem.sync({force:true})
 
 app.listen(8081, function(){
