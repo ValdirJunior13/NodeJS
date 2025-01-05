@@ -1,4 +1,6 @@
 CREATE DATABASE SistemaDeCadastro;
+CREATE DATABASE postapp;
+USE postapp;
 USE SistemaDeCadastro;
 CREATE TABLE Teste(
     nome VARCHAR(100),
