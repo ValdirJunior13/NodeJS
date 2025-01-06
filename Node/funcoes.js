@@ -13,9 +13,11 @@ app.use(bodyParser.json())
 app.get('/cad', function(req, res){
     res.render('formulario')
 })
-app.get('/',function(req, res){
-    res.render('home')
-})
+app.get('/', (req, res) => {
+    Post.all().then(function(posts){
+        res.render('home', { posts: posts });
+    })
+});
 app.post('/add', function(req, res){
     Post.create({
         titulo: req.body.titulo,
