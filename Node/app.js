@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 const admin = require("./routes/admin");
-
+const path = require('path')
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -14,7 +14,11 @@ app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Mongoose
-// (Configure o mongoose aqui, se necessário)
+
+// Public
+app.use(express.static(path.join(__dirname, "public")));
+
+
 
 // Rotas
 app.use("/admin", admin);
