@@ -14,7 +14,11 @@ app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Mongoose
-
+mongoose.connect('mongodb://localhost/app').then(() =>{
+console.log("conectado ao mongo")
+}).catch((err) => {
+  console.log("Erro ao se conectar" + err)
+})
 // Public
 app.use(express.static(path.join(__dirname, "public")));
 

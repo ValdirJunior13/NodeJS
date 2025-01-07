@@ -6,18 +6,18 @@ mongoose.connect = ("mongodb://localhost/mongoTeste", {
 const UsuariosSchema = mongoose.Schema({
     nome: {
         type: String,
-        require: true
+        required: true
     },
     id: {
         type: Number
     },
     email: {
         type: String,
-        require: true
+        required: true
     },
     idade: {
         type: Number,
-        require: true
+        required: true
     }
 })
 
