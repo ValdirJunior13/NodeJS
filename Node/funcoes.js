@@ -3,9 +3,6 @@ const app = express();
 const { engine } = require('express-handlebars')
 const bodyParser = require('body-parser')
 const Post = require('./models/Post')
-const mongoose = require('mongoose')
-
-mongoose.connect = ("mongodb://localhost/testemongoose")
 
 app.engine('handlebars', engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars')
