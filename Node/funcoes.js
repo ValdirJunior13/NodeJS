@@ -30,3 +30,4 @@ app.post('/add', function(req, res){
 app.listen(8081, function(){
     console.log("Servidor rodando na url localhost:8081");
 });
+module.exports = router;
