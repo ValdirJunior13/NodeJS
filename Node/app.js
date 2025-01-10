@@ -5,22 +5,44 @@ const mongoose = require("mongoose");
 const app = express();
 const admin = require("./routes/admin");
 const path = require('path')
+const session = require("express-session")
+const flash = require("connect-flash")
+//Sessão
+app.use(session({
+  secret: "12345678",
+  resave: true,
+  saveUninitialized:true
+}))
+app.use(flash())
+//middleware
+app.use((req, res, next) => {
+  res.locals.sucess_msg = req.flash("sucSess_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+  
+})
+
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true}))
 
 // Handlebars
 app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Mongoose
-mongoose.connect('mongodb://localhost/app').then(() =>{
+mongoose.connect('mongodb://127.0.0.1:27017/app').then(() =>{
 console.log("conectado ao mongo")
 }).catch((err) => {
   console.log("Erro ao se conectar" + err)
 })
 // Public
 app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  next();
+
+})
 
 
 

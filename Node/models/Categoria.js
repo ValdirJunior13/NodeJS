@@ -1,20 +1,18 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
 const Categoria = new Schema({
     nome: {
         type: String,
         required: true
-
     },
-    slug:{
+    slug: {
         type: String,
         required: true
     },
-    date:{
+    date: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
-})
-
-mongoose.model("categorias", Categoria)
+});
+mongoose.model("categorias", Categoria);
