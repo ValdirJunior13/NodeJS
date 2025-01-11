@@ -98,9 +98,6 @@ router.post("/categorias/edit", (req,res)=>
             res.redirect("/admin/categorias")
         })
 
-    }).catch((err) => {
-        req.flash("error_msg", "Houve um erro ao editar a categoria")
-        res.redirect('/admin/categorias')
     })
 })
 router.post("/categorias/deletar", (req,res)=>{
