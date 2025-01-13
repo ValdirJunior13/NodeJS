@@ -11,11 +11,11 @@ const Postagem = new Schema({
     }, 
     descricao: {
         type: String,
-        require: true
+        required: true
     },
     conteudo: {
         type: String,
-        require: true
+        required: true
     },
     categoria: {
         type: Schema.Types.ObjectId,

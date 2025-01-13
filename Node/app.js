@@ -7,6 +7,8 @@ const admin = require("./routes/admin");
 const path = require('path')
 const session = require("express-session")
 const flash = require("connect-flash")
+require("./models/Postagem")
+const Postagem = mongoose.model('postagens')
 //Sessão
 app.use(session({
   secret: "12345678",
@@ -22,7 +24,9 @@ app.use((req, res, next) => {
   next();
   
 })
-
+app.get('/404', (req, res) =>{
+  res.send("erro 404")
+})
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
