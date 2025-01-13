@@ -1,14 +1,21 @@
-{{#if success_msg}}
-    <div class="alert alert-success"> {{success_msg}} </div>
-{{/if}}
-
-{{#if error_msg}}
-    <div class="alert alert-danger"> {{error_msg}} </div>
-{{/if}}
-
-
-<h2>Lista de Postagens: </h2>
+<h2>Lista de Postagens:</h2>
 <hr>
-<a href ="/admin/postagens/add"> <button class = "btn btn-success"> Nova Postagem </button></a>
+<a href="/admin/postagens/add">
+    <button class="btn btn-success">Nova Postagem</button>
+</a>
 
 
+{{#if postagens.length}}
+    {{#each postagens}}
+        <div class="card">
+            <div class="card-body">
+                <h4>{{titulo}}</h4>
+                <p>{{descricao}}</p>
+                <small>{{data}}</small>
+                <small>{{categoria}}</small>
+            </div>
+        </div>
+    {{/each}}
+{{else}}
+    <p>Não há postagens disponíveis.</p>
+{{/if}}
