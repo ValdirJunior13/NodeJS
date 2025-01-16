@@ -9,6 +9,7 @@ const session = require("express-session")
 const flash = require("connect-flash")
 require("./models/Postagem")
 const Postagem = mongoose.model('postagens')
+app.set("views", path.join(__dirname, "views"));
 //Sessão
 app.use(session({
   secret: "12345678",
@@ -50,14 +51,21 @@ app.use((req, res, next) => {
 })
 
 
-
 // Rotas
 app.use("/admin", admin);
+app.use("/", (req, res) => {
+  Postagem.find().populate("categoria").sort({data: "desc"}).then((postagens) => {
+    res.render("index", {postagens:  postagens})
+  }).catch((err) => {
+    req.flash("error_msg", "Houve um erro na tela inicial");
+    res.redirect('/404')
+  })
 
+})
 app.get("/postagem/:slug", (req, res) => {
   Postagem.findOne({slug: req.params.slug}).then((postagem) => {
     if(postagem){
-      res.render("postagem/index", {postagem: postagem})
+      res.render("postagens/index", {postagem: postagem})
 
     }else{
       req.flash("error_msg", "Esta mensagem não existe")
