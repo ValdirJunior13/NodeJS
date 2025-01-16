@@ -54,7 +54,21 @@ app.use((req, res, next) => {
 // Rotas
 app.use("/admin", admin);
 
+app.get("/postagem/:slug", (req, res) => {
+  Postagem.findOne({slug: req.params.slug}).then((postagem) => {
+    if(postagem){
+      res.render("postagem/index", {postagem: postagem})
 
+    }else{
+      req.flash("error_msg", "Esta mensagem não existe")
+      res.redirect("/")
+       
+    }
+  }).catch((err)=>{
+    req.flash("error_msg", "Esta postagem não existe")
+    res.redirect("/")
+  })
+})
 const PORT = 8081;
 app.listen(PORT, () => {
   console.log("Servidor rodando!");

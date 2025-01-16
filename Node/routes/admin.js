@@ -120,7 +120,7 @@ router.post("/categorias/deletar", (req,res)=>{
 })
 })
 router.get("/postagens", (req, res) =>{
-    Postagem.find().populate("categoria").sort({data:"desc"}).then((postagens) => {
+    Postagem.find().populate("categoria").sort({data:"descending"}).then((postagens) => {
         res.render("admin/postagens", {postagens:postagens})
     }).catch((err) => {
         req.flash("error_msg", "houve um erro ao listar as postagens" )
@@ -138,7 +138,7 @@ router.get('/postagens/add', (req, res) =>{
 })
 router.post('/postagens/nova', (req, res) =>{
     var erros=[]
-    if(req.body.categoria == '0'){
+    if(!req.body.categoria || req.body.categoria === '0'){
         erros.push({texto: "Categoria inválida, registre uma categoria"})
 
 }
