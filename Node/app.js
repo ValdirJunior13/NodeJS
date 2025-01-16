@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 // Rotas
 app.use("/admin", admin);
 app.use("/", (req, res) => {
-  Postagem.find().populate("categoria").sort({data: "desc"}).then((postagens) => {
+  Postagem.find().lean().populate("categoria").sort({data: "desc"}).then((postagens) => {
     res.render("index", {postagens:  postagens})
   }).catch((err) => {
     req.flash("error_msg", "Houve um erro na tela inicial");
@@ -62,7 +62,7 @@ app.use("/", (req, res) => {
   })
 
 })
-app.get("/postagem/:slug", (req, res) => {
+app.get("/postagens/:slug", (req, res) => {
   Postagem.findOne({slug: req.params.slug}).then((postagem) => {
     if(postagem){
       res.render("postagens/index", {postagem: postagem})

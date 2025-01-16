@@ -109,24 +109,22 @@ router.post("/categorias/edit", (req,res)=>
 
     })
 })
-router.post("/categorias/deletar", (req,res)=>{
-    Categoria.deleteOne({_id: req.body.id}).lean().then(()=>{
-        req.flash("success_msg", "categoria deletada com sucesso")
-        res.redirect("/admin/categorias")
+router.post("/categorias/deletar", (req, res) => {
+    Categoria.deleteOne({ _id: req.body.id }).lean().then(() => {
+        req.flash("success_msg", "Categoria deletada com sucesso");
+        res.redirect("/admin/categorias");
     }).catch((err) => {
-        req.flash("error_msg", "Houve um erro interno ao salvar a edicao da categoria")
-        res.redirect("/admin/categorias")
-    
-})
-})
-router.get("/postagens", (req, res) =>{
-    Postagem.find().populate("categoria").sort({data:"descending"}).then((postagens) => {
-        res.render("admin/postagens", {postagens:postagens})
-    }).catch((err) => {
-        req.flash("error_msg", "houve um erro ao listar as postagens" )
+        req.flash("error_msg", "Houve um erro interno ao tentar deletar a categoria");
+        res.redirect("/admin/categorias");
+    });
+});
+router.get("/postagens", (req, res) => {
+    Postagem.find().lean().populate("categoria").sort({data: 'desc'}).then((postagens) => {
+        res.render("admin/postagens", {postagens: postagens})
+    }).catch((err)=> {
+        req.flash("error_msg","Erro ao carregar as postagens")
         res.redirect("/admin")
     })
-  
 })
 router.get('/postagens/add', (req, res) =>{
     Categoria.find().lean().then((categorias) => {
@@ -138,6 +136,7 @@ router.get('/postagens/add', (req, res) =>{
 })
 router.post('/postagens/nova', (req, res) =>{
     var erros=[]
+
     if(!req.body.categoria || req.body.categoria === '0'){
         erros.push({texto: "Categoria inválida, registre uma categoria"})
 
