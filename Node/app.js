@@ -10,6 +10,7 @@ const flash = require("connect-flash")
 require("./models/Postagem")
 const Postagem = mongoose.model('postagens')
 const usuarios = require('./routes/usuario')
+
 app.set("views", path.join(__dirname, "views"));
 //Sessão
 app.use(session({
