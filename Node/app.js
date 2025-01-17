@@ -9,6 +9,7 @@ const session = require("express-session")
 const flash = require("connect-flash")
 require("./models/Postagem")
 const Postagem = mongoose.model('postagens')
+const usuarios = require('./routes/usuario')
 app.set("views", path.join(__dirname, "views"));
 //Sessão
 app.use(session({
@@ -53,6 +54,7 @@ app.use((req, res, next) => {
 
 // Rotas
 app.use("/admin", admin);
+app.use("/usuarios", usuarios)
 app.use("/", (req, res) => {
   Postagem.find().lean().populate("categoria").sort({data: "desc"}).then((postagens) => {
     res.render("index", {postagens:  postagens})
@@ -77,6 +79,7 @@ app.get("/postagens/:slug", (req, res) => {
     res.redirect("/")
   })
 })
+
 const PORT = 8081;
 app.listen(PORT, () => {
   console.log("Servidor rodando!");
