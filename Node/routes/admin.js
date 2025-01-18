@@ -8,7 +8,7 @@ const Postagem = mongoose.model('postagens')
 
 // Rota principal
 router.get("/", (req, res) => {
-    Postagem.find().sort({data: 'desc'}).then((postagens) => {
+    Postagem.find().lean().sort({data: 'desc'}).then((postagens) => {
         res.render('admin/index', {postagens: postagens})
 
     }).catch((err) => {
@@ -25,7 +25,7 @@ router.get("/posts", (req, res) => {
 
 // Página de listagem de categorias
 router.get("/categorias", (req, res) => {
-    Categoria.find().sort({date:'desc'}).lean().then((categorias) => {
+    Categoria.find().lean().sort({date:'desc'}).lean().then((categorias) => {
         res.render("admin/categorias", {categorias: categorias})
     }).catch((err) => {
         req.flash("error_msg", "Houve um erro ao listar as categorias");
@@ -38,11 +38,11 @@ router.get("/categorias/add", (req, res) => {
     res.render("admin/addcategorias");
 });
 
-// Rota para salvar uma nova categoria
+
 router.post("/categorias/nova", (req, res) => {
     let erros = [];
 
-    // Validação dos campos
+
     if (!req.body.nome || typeof req.body.nome === "undefined" || req.body.nome === null) {
         erros.push({ texto: "Nome inválido" });
     }
@@ -55,11 +55,11 @@ router.post("/categorias/nova", (req, res) => {
         erros.push({ texto: "Nome da categoria muito pequeno" });
     }
 
-    // Se houver erros, renderiza a página novamente com os erros
+
     if (erros.length > 0) {
         res.render("admin/addcategorias", { erros: erros });
     } else {
-        // Caso contrário, cria uma nova categoria
+
         const novaCategoria = {
             nome: req.body.nome,
             slug: req.body.slug,

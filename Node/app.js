@@ -66,7 +66,7 @@ app.use("/", (req, res) => {
 
 })
 app.get("/postagens/:slug", (req, res) => {
-  Postagem.findOne({slug: req.params.slug}).then((postagem) => {
+  Postagem.findOne({slug: req.params.slug}).lean().then((postagem) => {
     if(postagem){
       res.render("postagens/index", {postagem: postagem})
 
